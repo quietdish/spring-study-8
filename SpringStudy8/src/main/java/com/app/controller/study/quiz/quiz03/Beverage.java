@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class Beverage {
-	String name;
+	String item;
 	String type;
 }

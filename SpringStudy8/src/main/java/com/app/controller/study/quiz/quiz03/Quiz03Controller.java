@@ -1,11 +1,15 @@
 package com.app.controller.study.quiz.quiz03;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -28,8 +32,39 @@ public class Quiz03Controller {
 	}
 
 //	2) RequestParam 활용 (/request1-2)
+	@GetMapping("/request1-2")
+	public String request1_2(@RequestParam(required = false) String item, @RequestParam(required = false) String type) {
+
+		System.out.println("/request1-2 ===============");
+		System.out.println(item);
+		System.out.println(type);
+
+		return "quiz/quiz03/req";
+	}
+	
+	
 //	3) RequestParam Map 활용 (/request1-3)
+	@GetMapping("/request1-3")
+	public String request1_3(@RequestParam Map<String, String> paramMap) {
+		
+		System.out.println("/request1-3 ===============");
+		System.out.println( paramMap.get("item") );
+		System.out.println( paramMap.get("type") );
+		
+		return "quiz/quiz03/req";
+	}
+	
+	
 //	4) 자바 Dto 객체 활용 (/request1-4)
+	@GetMapping("/request1-4")
+	public String request1_4(@ModelAttribute Beverage beverage) {
+		
+		System.out.println("/request1-4 ===============");
+		System.out.println( beverage.getItem() );
+		System.out.println( beverage.getType() );
+		
+		return "quiz/quiz03/req";
+	}
 
 //	2. /quiz03/viewData1-x 요청시 화면에 값 출력
 //
@@ -54,14 +89,12 @@ public class Quiz03Controller {
 		return "quiz/quiz03/viewData";
 	}
 
-}
-
 //	3) ModelAndView 활용 /viewData1-3
 	@GetMapping("/viewData1-3")
 	public ModelAndView viewData1_3(Model model) {
 
 		ModelAndView mav = new ModelAndView();
-		mav.setView("quiz/quiz03/viewData");
+		mav.setViewName("quiz/quiz03/viewData");
 
 		mav.addObject("name", "쌀국수");
 		mav.addObject("type", "베트남음식");
@@ -69,7 +102,7 @@ public class Quiz03Controller {
 
 		return mav;
 	}
-	
+
 //4) Model에 객체 단위로 전달 활용 /viewData1-4
 
 	@GetMapping("/viewData1-4")
@@ -86,10 +119,26 @@ public class Quiz03Controller {
 		return "quiz/quiz03/viewData";
 	}
 
-	
 //5
 	
-	
+	@GetMapping("/viewData1-5")
+	public String viewData1_5(@ModelAttribute Beverage beverage , Model model) {
+		
+		//http://localhost:8080/quiz03/viewData1-5
+		System.out.println( "request 에 담겨온 파라미터 객체로 받기 ");
+		System.out.println( beverage.getItem() );
+		System.out.println( beverage.getType() );
+		
+		//화면에 객체로 전달
+
+		DrinkItem drinkItem = new DrinkItem();
+		drinkItem.setName("사이다");
+		drinkItem.setType("탄산");
+		model.addAttribute("drinkItem", drinkItem);
+		
+		return "quiz/quiz03/viewData";
+	}
+
 }
 
 //		@GetMapping("/viewData1_2")
