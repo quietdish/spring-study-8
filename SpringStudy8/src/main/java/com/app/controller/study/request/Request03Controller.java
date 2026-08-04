@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -116,6 +118,56 @@ public class Request03Controller {
 		}
 		
 		return "req/param/param2";
-		
 	}
+	
+	// get 요청		조회/읽기		데이터 조회/단순 화면 전달	-> 요청 파라미터에 따라서 그에 맞는 화면 연결
+	// post 요청		쓰기/저장		데이터 전달 -> 실제 데이터 받아서 로직 처리
+	
+	@GetMapping("/param8")
+	public String param8() {
+		
+		System.out.println("param8 요청 [GET 요청] -> 화면 전달");
+		return "req/param/param8";
+	}
+	
+	@PostMapping("/param8")
+	//param8   param8Action  param8Process  param8Proc
+//	public String param8(HttpServletRequest request) {
+//		System.out.println(request.getParameter("id"));
+//		System.out.println(request.getParameter("name"));
+//		System.out.println(request.getParameter("price"));
+										//DTO 객체
+	//public String param8(@ModelAttribute Product product) {
+	public String param8(@ModelAttribute ProductRequestForm product) {
+		
+		//DTO 객체로 전달받기
+		System.out.println("param8 POST요청");
+		//System.out.println(product.id);
+		System.out.println(product.toString());
+		
+		// (+입력시 입력화면마다 다른 제약조건(유효성검증)으로 인해 많이 사용함)
+		// productrequestform 으로 전달 받고
+		// product.getType() .... -> 로직 활용하고
+		// productrequestform -> product  데이터 이동(복사)
+		// product 객체 -> DB 저장
+		
+		//product dto -> DB 저장 
+		
+		return "req/param/param8after";
+	}
+		
+	
+	//localhost:8080/request03/param8?itemId=1234
+	
+	//localhost:8080/request03/param8/1234
+	@RequestMapping("/param9/{itemId}")
+	public String param9(@PathVariable String itemId) {
+		
+		System.out.println("/request03/param9/{itemId}");
+		System.out.println(itemId);
+		
+		return "req/param/param2";
+	}
+	
+	
 }
