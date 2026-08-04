@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.app.dto.study.request.ProductRequestForm;
+
 @Controller
 @RequestMapping("/request03")
 public class Request03Controller {
@@ -144,6 +146,7 @@ public class Request03Controller {
 		System.out.println("param8 POST요청");
 		//System.out.println(product.id);
 		System.out.println(product.toString());
+		System.out.println(product.getId());
 		
 		// (+입력시 입력화면마다 다른 제약조건(유효성검증)으로 인해 많이 사용함)
 		// productrequestform 으로 전달 받고
@@ -157,7 +160,7 @@ public class Request03Controller {
 	}
 		
 	
-	//localhost:8080/request03/param8?itemId=1234
+	//localhost:8080/request03/param8?itemId=1234 //나옴 ㅇㅅㅇ..
 	
 	//localhost:8080/request03/param8/1234
 	@RequestMapping("/param9/{itemId}")
