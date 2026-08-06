@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class Quiz07Controller {
 
 	@GetMapping("/quiz07/listTest")
-	public String listTest(@RequestParam String type,
+	public String listTest(@RequestParam(required = false) String type,
 							Model model) {
 		/*
 //		1. localhost:8080/quiz07/listTest?type=str 경로로 접근시
