@@ -6,92 +6,84 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class Quiz07Controller {
-
+// Quiz07 원본
+//	@GetMapping("/quiz07/listTest")
+//	public String listTest(@RequestParam(required = false) String type, Model model) {
+		
+	// Quiz09 로 인한 추가변경사항
 	@GetMapping("/quiz07/listTest")
-	public String listTest(@RequestParam(required = false) String type,
+	public String listTest(@PathVariable(required = false) String type,
 							Model model) {
-		/*
-//		1. localhost:8080/quiz07/listTest?type=str 경로로 접근시
-		//
-//					출력 결과 ↓↓↓↓ (총 10줄)
-//					스트링 리스트입니다.
-		// 1) type 값에 따라 구분해서 별도의 페이지로 연결
-		//str 반복 처리
-		//1) view 고정 텍스트 (하드코딩)
-		if(type.equals("str")) {
-			
-		//3) 반복 처리
-		model.addAttribute("msg", "스트링 리스트입니다.!");
-						
-		//4)
-		List<String> strList = new ArrayList<String>();
-		for(int i=1; i<=5; i++) {
-			strList.add("List 스트링 리스트입니다!");
-		}
-		model.addAttribute("strList", strList);
-		
-		return "quiz/quiz07/str";
-			
-		} else { //member
-			
-//		2. localhost:8080/quiz07/listTest?type=member 경로로 접근시
-			List<Member> memberList = new ArrayList<Member>();
-			for(int i=1; i<=5; i++) {
-				memberList.add(new Member("아이디"+i, "비번"+i, "이름"+i)); 	//Member에 @생성자 ....
-			}
-			
-			model.addAttribute("memberList", memberList);
-			
-			return "quiz/quiz07/member";
-			
-		} */
-	
+	/*
+		 * // 1. localhost:8080/quiz07/listTest?type=str 경로로 접근시 // // 출력 결과 ↓↓↓↓ (총
+		 * 10줄) // 스트링 리스트입니다. // 1) type 값에 따라 구분해서 별도의 페이지로 연결 //str 반복 처리 //1) view
+		 * 고정 텍스트 (하드코딩) if(type.equals("str")) {
+		 * 
+		 * //3) 반복 처리 model.addAttribute("msg", "스트링 리스트입니다.!");
+		 * 
+		 * //4) List<String> strList = new ArrayList<String>(); for(int i=1; i<=5; i++)
+		 * { strList.add("List 스트링 리스트입니다!"); } model.addAttribute("strList", strList);
+		 * 
+		 * return "quiz/quiz07/str";
+		 * 
+		 * } else { //member
+		 * 
+		 * // 2. localhost:8080/quiz07/listTest?type=member 경로로 접근시 List<Member>
+		 * memberList = new ArrayList<Member>(); for(int i=1; i<=5; i++) {
+		 * memberList.add(new Member("아이디"+i, "비번"+i, "이름"+i)); //Member에 @생성자 .... }
+		 * 
+		 * model.addAttribute("memberList", memberList);
+		 * 
+		 * return "quiz/quiz07/member";
+		 * 
+		 * }
+		 */
 
-		//if(type.equals("member"))
-			
+		// if(type.equals("member"))
+
 		// 2) 동일한 페이지 사용 -> view 내부에서 type 값에 따라 동적으로 화면 구성
-		
+
 		model.addAttribute("type", type);
-		
+
 		// 각 type 별로 파라미터 기준으로 구분 -> 필요한 연산작업만 수행
-		
-		
+
 		model.addAttribute("msg", "2스트링 리스트입니다!");
-		
+
 		/// 위 주석..
-		
+
 		List<Member> memberList = new ArrayList<Member>();
-		for(int i=1; i<=5; i++) {
-			memberList.add(new Member("아이디"+i, "비번"+i, "이름"+i));
+		for (int i = 1; i <= 5; i++) {
+			memberList.add(new Member("아이디" + i, "비번" + i, "이름" + i));
 		}
-		
+
 		model.addAttribute("memberList", memberList);
-		
+
 		return "quiz/quiz07/listTest";
 	}
-}		
 
-
-
-
-		//request.setAttribute("스트링", "qwe123");
-		//System.out.println(request.getParameter("type"));
-
-		
-		//return "/quiz/quiz07/listTest";
-		
-//	@GetMapping("/quiz07/listTest")
-//	public String listTest(Model model) {
-//		
-//		model.addAttribute("str", "스트링 리스트입니다.");
-//		
-//		return "/quiz/quiz07/listTest";
+//	@GetMapping("/quiz07/member")
+//	public String member(String type, Model model) {
+//
+//		model.addAttribute("str", "퀴즈09멤버");
+//
+//		return "/quiz/quiz07/member";
+//	}
+	
+}	
+//	@GetMapping("/quiz07/str")
+//	public String str(String type, Model model) {
+//
+//		model.addAttribute("str", "퀴즈09str");
+//
+//		return "/quiz/quiz07/member";
 //	}
 
-	
-	
+	// request.setAttribute("스트링", "qwe123");
+	// System.out.println(request.getParameter("type"));
 
+	// return "/quiz/quiz07/listTest";
