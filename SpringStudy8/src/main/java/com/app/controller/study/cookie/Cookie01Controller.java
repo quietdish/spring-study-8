@@ -123,7 +123,7 @@ public class Cookie01Controller {
 	}
 	
 	
-	@GetMapping("removeCookie")
+	@GetMapping("/removeCookie")
 	public String removeCookie(HttpServletResponse response) {
 		//쿠키 삭제하기
 		// 쿠키 수명시간 0으로 세팅 -> 전달 -> 삭제
