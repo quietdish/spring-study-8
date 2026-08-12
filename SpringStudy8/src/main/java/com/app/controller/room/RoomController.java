@@ -22,9 +22,10 @@ public class RoomController {
 	@GetMapping("/rooms")
 	public String rooms(Model model) {
 		
-		//호실 정보
-		//Controller -> Service -> DAO <-> DB
+		System.out.println("[Controller] /rooms 호출");
 		
+		//호실 정보
+		//Controller -> Service -> DAO <-> DB		
 		
 		List<Room> roomList = roomService.findRoomList();
 		
