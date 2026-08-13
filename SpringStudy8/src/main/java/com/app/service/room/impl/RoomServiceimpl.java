@@ -55,4 +55,12 @@ public class RoomServiceimpl implements RoomService {
 		
 		return result;
 	}
+
+	@Override
+	public Room findRoomByRoomId(int roomId) {
+
+		Room room = roomDAO.findRoomByRoomId(roomId);
+		
+		return room;
+	}
 }

@@ -24,4 +24,21 @@
 		order by room_id		
 	</select>
 
+	<select id="findRoomByRoomId" resultType="Room" parameterType="int">
+		select *
+		from t_room
+		where room_id = #{roomId}
+	</select>
+
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
