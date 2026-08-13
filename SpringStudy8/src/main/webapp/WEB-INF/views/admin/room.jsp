@@ -11,7 +11,7 @@
 	<h1>관리자페이지</h1>
 	<h2>room 객실 상세페이지</h2>
 	
-	<h3>여기는 상세</h3>
+	<h3>여기는 상세페이지입니다.</h3>
 	<p>
 		${room.roomId} ${room.buildingName} ${room.roomNumber} ${room.floor} 
 		${room.maxGuestCount} ${room.viewType}
@@ -24,8 +24,8 @@
 	</p>
 	
 	<div>
-		<button type="button" onclick=" location.href='/admin/rooms' ">
-		객실목록보기</button>
+		<button type="button" onclick=" location.href='/admin/rooms' ">객실목록보기
+		</button>
 	</div>
 	
 </body>
