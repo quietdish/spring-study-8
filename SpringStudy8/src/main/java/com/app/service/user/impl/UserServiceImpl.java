@@ -30,8 +30,8 @@ public class UserServiceImpl implements UserService {
 		//고객계정으로 추가!
 		user.setUserType("CUS");
 		
-		int result = userDAO.saveUser(user);
-		return result;
+		//int result = userDAO.saveUser(user);
+		return userDAO.saveUser(user);
 	}
 
 	@Override
