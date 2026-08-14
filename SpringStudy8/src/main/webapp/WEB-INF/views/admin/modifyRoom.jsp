@@ -25,7 +25,7 @@
 			<option value="CTY" <c:if test="${room.viewType == 'CTY'}"></c:if>>시티뷰</option>
 			<option value="MOT" <c:if test="${room.viewType == 'MOT'}"></c:if>>마운틴뷰</option>
 		</select> <br>
-		<button type="submit">객실추가</button>
+		<button type="submit">수정하기</button>
 	</form>
 
 	<div>
