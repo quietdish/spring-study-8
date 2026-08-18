@@ -18,4 +18,6 @@ public interface UserService {
 	
 	// UserService.java 안에 추가
 	int updateUserPassword(User user);
+	
+	int modifyUserPw(User user);
 }
