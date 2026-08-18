@@ -101,4 +101,11 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	
+	
+	// UserServiceImpl.java 안에 추가
+	@Override
+	public int updateUserPassword(User user) {
+	    return userDAO.updateUserPassword(user); // 또는 userMapper.updateUserPassword(user);
+	}
+	
 }

@@ -31,4 +31,14 @@
 		and user_type = #{userType}
 	</select>
 	
+	
+	<!-- xml 파일 내 적절한 위치에 추가 -->
+	<!-- 비밀번호 변경 쿼리 (테이블명 t_user 적용) -->
+	<update id="updateUserPassword" parameterType="User">
+		UPDATE t_user 
+		   SET pw = #{pw} 
+		 WHERE id = #{id}
+	</update>
+	
+	
 </mapper>

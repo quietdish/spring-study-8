@@ -15,4 +15,7 @@ public interface UserService {
 	
 	public User checkUserLogin(User user);
 	public User findUserById(String id);
+	
+	// UserService.java 안에 추가
+	int updateUserPassword(User user);
 }

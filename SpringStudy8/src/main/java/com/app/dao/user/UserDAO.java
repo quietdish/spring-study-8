@@ -12,4 +12,7 @@ public interface UserDAO {
 	public User findUserById(String id);
 
 	public User checkUserLogin(User user);
+	
+	// UserDao.java 안에 추가
+	int updateUserPassword(User user);
 }
