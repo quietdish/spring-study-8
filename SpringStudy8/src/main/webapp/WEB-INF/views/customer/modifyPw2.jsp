@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,16 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>비밀번호 변경</h2>
-	
-	<form action="/customer/modifyPw2" method="post">
-		
-		<label>새 비밀번호 : </label>
-		<input type="password" name="pw" required>
-		<br><br>
-		
+	<h1>사용자 비밀번호 변경</h1>
+
+	<form action="" method="post">
+		변경할 비밀번호 : <input type="password" name="pw"><br> <br>
+
 		<button type="submit">비밀번호 변경하기</button>
-		<button type="button" onclick="location.href='/customer/mypage'">마이페이지로 돌아가기</button>
 	</form>
+
+
+	<br>
+	<button type="button" onclick=" location.href='/customer/mypage' ">마이페이지로
+		돌아가기</button>
+
+
 </body>
 </html>

@@ -22,7 +22,7 @@
 		
 		<label>고객(사용자)<input type="radio" name="userType" value='CUS' 
 		<c:if test="${user.userType == 'CUS'}">checked</c:if> ></label>
-		<input type="radio" name="userType" value='ADM' <c:if test="${user.userType == 'ADM'}">checked</c:if> >
+		관리자<input type="radio" name="userType" value='ADM' <c:if test="${user.userType == 'ADM'}">checked</c:if> >
 		<br><br>
 
 		
