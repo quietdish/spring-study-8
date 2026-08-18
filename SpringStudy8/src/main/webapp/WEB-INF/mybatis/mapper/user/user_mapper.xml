@@ -2,43 +2,167 @@
 <!DOCTYPE mapper PUBLIC
 		   "-//mybatis.org//DTD Mapper 3.0//EN" 
 		   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+		   
 <mapper namespace="user_mapper">
-
+	
 	<insert id="saveUser" parameterType="User">
-		insert into t_user values (
+		INSERT INTO T_USER VALUES (
 			#{id},
 			#{pw},
 			#{name},
-			#{userType}		
-		)		
-	</insert>
-
+			#{userType}	
+		)
+	</insert>	
+	
 	<select id="findUserList" resultType="User">
 		select * from t_user
-	</select> 
+	</select>
+	
 	
 	<select id="findUserById" resultType="User" parameterType="String">
-		select * from t_user
-		where id = #{id} 
+		SELECT * FROM T_USER
+		WHERE id = #{id}
 	</select>
+	
 	
 	<select id="checkUserLogin" resultType="User" parameterType="User">
-		select * 
-		from t_user
-		where id = #{id}
-		and pw = #{pw}
-		and user_type = #{userType}
+		SELECT *
+		FROM T_USER
+		WHERE id = #{id}
+		AND pw = #{pw}
+		AND user_type = #{userType}
 	</select>
 	
 	
-	<!-- xml 파일 내 적절한 위치에 추가 -->
-	<!-- 비밀번호 변경 쿼리 (테이블명 t_user 적용) -->
-	<update id="updateUserPassword" parameterType="User">
-		UPDATE t_user 
-		   SET pw = #{pw} 
-		 WHERE id = #{id}
+	<update id="modifyUser" parameterType="User">
+		UPDATE T_USER
+		SET pw = #{pw},
+			name = #{name},
+			user_type = #{userType}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="modifyUserPw" parameterType="User">
+		UPDATE T_USER
+		SET pw = #{pw}
+		WHERE id = #{id}
 	</update>
 	
 	
+	<select id="findUserListBySearchCondition" parameterType="UserSearchCondition" resultType="User">
+		
+		SELECT *
+		FROM T_USER
+		<where>
+			<trim prefixOverrides="OR" prefix="(" suffix=")">
+				<if test="name != null and name != '' ">
+					name LIKE '%' || #{searchKeyword} || '%' 
+				</if>
+				<if test="id != null and id != '' ">
+					OR id LIKE '%' || #{searchKeyword} || '%'
+				</if>
+			</trim>
+			<if test="userType != null and userType != '' ">
+				AND user_type = #{userType}
+			</if>
+		</where>
+		
+		
+<!-- 		SELECT * -->
+<!-- 		FROM T_USER -->
+<!-- 		<where> -->
+<!-- 			<if test= " (name != null and name != '') or (id != null and id != '' ) "> -->
+<!-- 				( -->
+<!-- 					<if test="name != null and name != '' "> -->
+<!-- 					 	name LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 					</if> -->
+<!-- 					<if test="id != null and id != '' "> -->
+<!-- 						<if test="name != null and name != '' "> -->
+<!-- 							OR id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 						</if> -->
+<!-- 						<if test="name == null or name == '' "> -->
+<!-- 							id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 						</if> -->
+<!-- 					</if>	 -->
+<!-- 				) -->
+<!-- 			</if>			 -->
+<!-- 			<if test="userType != null and userType != '' "> -->
+<!-- 				AND user_type = #{userType} -->
+<!-- 			</if> -->
+<!-- 		</where> -->
+		
+		
+<!-- 		SELECT * -->
+<!-- 		FROM T_USER -->
+<!-- 		<where> -->
+<!-- 			<if test="name != null and name != '' "> -->
+<!-- 			 	name LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 			</if> -->
+<!-- 			<if test="id != null and id != '' "> -->
+<!-- 				AND id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 			</if>	 -->
+<!-- 			<if test="userType != null and userType != '' "> -->
+<!-- 				AND user_type = #{userType} -->
+<!-- 			</if> -->
+<!-- 		</where> -->
+		
+		
+		
+<!-- 		SELECT * -->
+<!-- 		FROM T_USER -->
+<!-- 		<where> -->
+<!-- 			<if test="name != null and name != '' "> -->
+<!-- 			 	name LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 			</if> -->
+<!-- 			<if test="id != null and id != '' "> -->
+<!-- 				AND id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 			</if>	 -->
+<!-- 		</where> -->
+			
+		
+		
+		
+		
+<!-- 		SELECT * -->
+<!-- 		FROM T_USER -->
+<!-- 		WHERE  -->
+<!-- 			1=2  -->
+<!-- 		<if test="name != null and name != '' "> -->
+<!-- 			OR name LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 		</if> -->
+<!-- 		<if test="id != null and id != '' "> -->
+<!-- 			OR id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 		</if> -->
+		
+		
+<!-- 		SELECT * -->
+<!-- 		FROM T_USER -->
+<!-- 		WHERE  -->
+<!-- 			1=1  -->
+<!-- 		<if test="name != null and name != '' "> -->
+<!-- 			AND name LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 		</if> -->
+<!-- 		<if test="id != null and id != '' "> -->
+<!-- 			AND id LIKE '%' || #{searchKeyword} || '%' -->
+<!-- 		</if> -->
+		
+	</select>
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

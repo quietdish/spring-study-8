@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.app.dto.room.Room;
 import com.app.dto.user.User;
+import com.app.dto.user.UserSearchCondition;
 import com.app.service.room.RoomService;
 import com.app.service.user.UserService;
 
 @Controller
 public class AdminController {
-	//관리자 접근 페이지 	(전체 관리자) or (판매자측/호텔측 사용자)
-	//			  운영회사측 전체관리자
+	//관리자 접근 페이지   (전체 관리자) or (판매자측/호텔측 사용자)
+	//			운영회사측 전체관리자
 	
 	@Autowired
 	RoomService roomService;
@@ -30,94 +31,97 @@ public class AdminController {
 	
 	@GetMapping("/admin/registerRoom")
 	public String registerRoom() {
-		return "/admin/registerRoom";
+		return "admin/registerRoom";
 	}
-	
 	
 	@PostMapping("/admin/registerRoom")
 	public String registerRoomAction(@ModelAttribute Room room) {
 		
 		//화면으로부터 입력한 값이 잘 넘어왔는지 체크
-		System.out.println(room);
+		System.out.println(room); 
 		
 		int result = roomService.saveRoom(room);
 		
-		// result 값 확인 -> 성공/실패 -> 진행
-		System.out.println("insert 처리 결과 리턴받은 적용된 행의 수: " + result);
 		
+		// result 값 확인 -> 성공/실패 -> 진행
+		System.out.println("insert 처리 결과 리턴받은 적용된 행의 수: " +  result);
 		
 		if(result > 0) { //저장 성공
-			return "redirect:/admin/rooms";
-		} else {	//저장 실패
-			return "/admin/registerRoom";
+			return "redirect:/admin/rooms";	
+		} else { //저장 실패
+			return "admin/registerRoom";
 		}
 		
-				
 	}
 	
-	//관리자가 객실
+	//관리자가 객실관리   전체 객실 목록 조회
 	@GetMapping("/admin/rooms")
 	public String rooms(Model model) {
 		
-		//rooms 페이지 
-		// T_ROOM 테이블 객실데이터	-> 조회	-> view 전달 -> 표시
+		//rooms 페이지
+		// T_ROOM 테이블 객실데이터   -> 조회  -> view전달 -> 표시
 		
 		List<Room> roomList = roomService.findRoomList();
 		
 		model.addAttribute("roomList", roomList);
 		
-		return "admin/rooms";
+		return "admin/rooms";		
 	}
 	
 	
-	//객실 개별
+	//객실 개별 상세 페이지 조회
 	//@GetMapping("/admin/room?roomId=3")
 	@GetMapping("/admin/room/{roomId}")
-	public String room( @PathVariable String roomId, Model model) {
+	public String room( @PathVariable String roomId, Model model ) {
 		
-		int roomIdPK = Integer.parseInt(roomId);
+		int roomIdPk = Integer.parseInt(roomId);
 		
-		Room room = roomService.findRoomByRoomId(roomIdPK);
+		Room room = roomService.findRoomByRoomId(roomIdPk);
 		model.addAttribute("room", room);
 		
-		if(room == null) { //조회한 room 데이터가 없다 or 문제발생 or roomId가 잘못됐다.
-			// 조회 정보가 없다고 보여주는 페이지			
+		if(room == null) { //조회한 room 데이터가 없다 or 문제발생 or roomId가 잘못됐다. 
+			// 조회 정보가 없다고 보여주는 페이지
 		}
 		
 		return "admin/room";
 	}
-
+	
+	
 	
 	//객실정보 삭제
 	// @GetMapping("/admin/removeRoom?roomId=3")
 	@GetMapping("/admin/removeRoom")
 	public String removeRoom(HttpServletRequest request) {
 		String roomId = request.getParameter("roomId");
-				
+		
 		if( roomId == null ) {
-			//삭제할 아이디 없을때?
-			return "redirect:/admin/rooms";
+			// 삭제할 아이디 없을때? 
+			return "redirect:/admin/rooms"; 
 		}
 		
-		int roomIdPK = Integer.parseInt(roomId);
-		int result = roomService.removeRoom(roomIdPK);
+		int roomIdPk = Integer.parseInt(roomId);
+		int result = roomService.removeRoom(roomIdPk);
 		
-		if(result > 0) { }
+		if(result > 0){ }
 		
-		return "redirect:/admin/rooms";
-}
-	//	localhost:8080/admin/modifyRoom?roomId=5
+		return "redirect:/admin/rooms"; 
+	}
+	
+	
+	//  localhost:8080/admin/modifyRoom?roomId=5
 	@GetMapping("/admin/modifyRoom")
-	public String modifyRoom(HttpServletRequest request) {
+	public String modifyRoom( HttpServletRequest request ) {
 		//수정화면에 진입시, 기존 값들 세팅
 		
 		String roomId = request.getParameter("roomId");
 		
-		if( roomId == null) {
+		if( roomId == null ) {
 			return "redirect:/admin/rooms";
 		}
 		
-		// PK roomId -> 해당 pk를 가진 객실정보 조회 -> view 전달 -> 화면에 세팅
+		
+		// PK roomId -> 해당 pk를 가진 객실정보 조회  -> view 전달 -> 화면에 세팅
+		
 		int roomIdPk = Integer.parseInt(roomId);
 		Room room = roomService.findRoomByRoomId(roomIdPk);
 		
@@ -127,25 +131,23 @@ public class AdminController {
 		//view 전달
 		request.setAttribute("room", room);
 		
-		return "/admin/modifyRoom";
-		
+		return "admin/modifyRoom";
 	}
 	
-	
 	@PostMapping("/admin/modifyRoom")
-	public String modifyRoomAction(Room room) {
+	public String modifyRoomAction( Room room ) {
 		
 		System.out.println("수정하려는 객실 정보");
 		System.out.println(room);
 		
 		int result = roomService.modifyRoom(room);
 		
-		if(result > 0) {	//성공
-			//수정 성공시 해당 호실 상세페이지로
+		if(result > 0) { //성공
+			//수정 성공시 해당 호실 상세페이지
 			return "redirect:/admin/room/" + room.getRoomId();
-		} else {	//수정 실패
-			//수정 페이지로 다시 진입시켜..
-			return "redirect:/admin/modifyRoom?roomId" + room.getRoomId();
+		} else { //수정 실패
+			//수정페이지로 다시 진입
+			return "redirect:/admin/modifyRoom?roomId=" + room.getRoomId();	
 		}
 		
 		
@@ -158,18 +160,19 @@ public class AdminController {
 	
 	
 	
+	//-------------------------------------------------
 	
-	//---------------------------------------------------------------
+	
 	//관리자가 사용자계정관리 -> 사용자 계정 임의로 추가
-	@GetMapping("admin/users/add")
+	@GetMapping("/admin/users/add")
 	public String addUser() {
 		return "admin/addUser";
 	}
 	
-	@PostMapping("admin/users/add")
+	@PostMapping("/admin/users/add")
 	//public String addUserAction(@ModelAttribute User user) {
-	public String addUserAction(User user) {	
-		//model.addattribute("user", user);
+	public String addUserAction(User user) {
+		//model.addAttribute("user", user);
 		
 		//user 정보를 DB에 저장
 		System.out.println(user);
@@ -177,79 +180,92 @@ public class AdminController {
 		//고객의 id와 name 만 보유
 		//고객의 계정 -> userType 값이 "CUS" 코드로 저장되어야함.
 		
-		/* 
-			1) 컨트롤러에서 바로 처리 가능..
+		
+		/*
+			1) 컨트롤러에서 바로 처리
 			user.setUserType("CUS");
-			userService.saveUser(user);
+			int result = userService.saveUser(user);
 			
 			2) 서비스 계층/레이어/레벨 에서 사용자를 저장하는 메소드 형태로 사용
-			userService.saveCustomer(user);
-		*/
+			int result = userService.saveCustomerUser(user);
+		 */
 		
-		//Controller 사용자 -> 요청/응답 처리(흐름)
-		//Service 업무규칙, 비즈니스 로직 핵심 처리
-		//DAO(Repository) 데이터 접근 처리(DB, API ...)
+		//Controller  사용자 -> 요청/응답 처리(흐름)
+		//Service  업무규칙, 비즈니스로직 핵심 처리
+		//DAO(Repository)  데이터 접근 처리 (DB, API ...)
 		
-		int result = userService.saveCustomerUser(user); //25line 추가..
 		
-		if(result > 0 ) {
+		int result = userService.saveCustomerUser(user);
+		
+		if(result > 0) {
 			return "redirect:/admin/users";
 		} else {
 			return "admin/addUser";
 		}
-		
-		
+				
 	}
+	
 	
 	
 	@GetMapping("/admin/users")
-	public String users(Model model) {
-		List<User> userList = userService.findUserList();
+	public String users(Model model,  UserSearchCondition userSearchCondition ) {
+		//검색조건 
+		// 검색조건 O -> 조건 검색 결과
+		// 검색조건 X -> 전체 조회
+		System.out.println(userSearchCondition);
+		
+		//List<User> userList = userService.findUserList();
+		List<User> userList = userService.findUserListBySearchCondition(userSearchCondition);
+		
 		model.addAttribute("userList", userList);
+		model.addAttribute("userSearchCondition", userSearchCondition);
 		
 		return "admin/users";
-	
 	}
+	
 	
 	
 	@GetMapping("/admin/user/{id}")
-	public String user(@PathVariable String id, Model model) {
+	public String user(@PathVariable String id, Model model ) {
 		
 		User user = userService.findUserById(id);
 		model.addAttribute("user", user);
-				
+		
 		return "admin/user";
 	}
 	
+	
 	@GetMapping("/admin/modifyUser/{id}")
-	public String modifyUser(@PathVariable String id, Model model) {
+	public String modifyUser(@PathVariable String id, Model model ) {
 		
 		User user = userService.findUserById(id);
 		model.addAttribute("user", user);
-				
+		
 		return "admin/modifyUser";
 	}
-	
 	
 	@PostMapping("/admin/modifyUser")
 	public String modifyUserAction(User user) {
 		
-		System.out.println("modifyUser");
+		System.out.println("modifyUser 에 요청 들어온 값 ");
 		System.out.println(user);
 		
 		//DB 수정 update
-		int result = userService.modifyUserPw(user);
+		int result = userService.modifyUser(user);
 		
-		if(result > 0 ) {	// 수정 성공 -> 사용자 상세페이지
+		if(result > 0) {  //수정 성공 -> 사용자 상세페이지
 			return "redirect:/admin/user/" + user.getId();
-		} else {	//수정실패 -> 다시 수정페이지
+		} else {  //수정실패 -> 다시 수정 페이지
 			return "redirect:/admin/modifyUser/" + user.getId();
 		}
-		
-		
 	}
 	
 }
+
+
+
+
+
 
 
 
