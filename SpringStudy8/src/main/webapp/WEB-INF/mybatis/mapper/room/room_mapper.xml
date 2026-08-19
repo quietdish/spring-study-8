@@ -5,7 +5,7 @@
 		   
 <mapper namespace="room_mapper">
 
-	<!-- <insert id="saveroom" parameterType="com.app.dto.room.Room"> -->
+<!-- 	<insert id="saveRoom" parameterType="com.app.dto.room.Room"> -->
 	<insert id="saveRoom" parameterType="Room">
 		INSERT INTO T_ROOM
 		VALUES (
@@ -15,40 +15,60 @@
 			#{floor},
 			#{maxGuestCount},
 			#{viewType}
-		)	
+		)
 	</insert>
 
 	<select id="findRoomList" resultType="Room">
 		select *
 		from T_ROOM
-		order by room_id		
+		order by room_id
 	</select>
-
+	
+	
 	<select id="findRoomByRoomId" resultType="Room" parameterType="int">
-		select *
-		from t_room
-		where room_id = #{roomId}
+		SELECT *
+		FROM T_ROOM
+		WHERE room_id = #{roomId}
 	</select>
-
+	
 	
 	<delete id="removeRoom" parameterType="int" >
-		delete from t_room
-		where room_id = #{roomId}
+		DELETE FROM T_ROOM
+		WHERE room_id = #{roomId}
 	</delete>
-
+	
+	
 	<update id="modifyRoom" parameterType="Room">
-		update t_room
-		set
+		UPDATE T_ROOM
+		SET
 			building_name = #{buildingName},
 			room_number = #{roomNumber},
 			floor = #{floor},
 			max_guest_count = #{maxGuestCount},
 			view_type = #{viewType}
-		where room_id = #{roomId}
+		WHERE ROOM_ID = #{roomId}
 	</update>
-
-
+	
+	
+	<select id="findRoomListBySearchCondition" resultType="Room" parameterType="RoomSearchCondition">
+		select *
+		from T_ROOM
+		<where>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				building_name LIKE '%' || #{searchKeyword} ||'%'
+			</if>
+			<if test="viewType != null and viewType != ''">
+				AND view_type = #{viewType}
+			</if>
+		</where>
+		order by room_id
+	</select>
+	
+	
 </mapper>
+
+
+
 
 
 

@@ -8,12 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import com.app.dao.room.RoomDAO;
 import com.app.dto.room.Room;
+import com.app.dto.room.RoomSearchCondition;
 
 // 데이터소스와 연결/통신하는 역할
 // DB연동 -> DAO
 // 외부API -> Repository
 
-//DAO Repository 
+//DAO Repository
 @Repository
 public class RoomDAOImpl implements RoomDAO {
 
@@ -24,8 +25,8 @@ public class RoomDAOImpl implements RoomDAO {
 	
 	@Override
 	public List<Room> findRoomList() {
-
-		// DB 연동 -> room 테이블 데이터 조회 -> List<Room>		
+		
+		// DB 연동 -> room 테이블 데이터 조회 -> List<Room>
 		System.out.println("RoomDAOImpl findRoomList");
 		
 		List<Room> roomList = sqlSessionTemplate.selectList("room_mapper.findRoomList");
@@ -33,10 +34,10 @@ public class RoomDAOImpl implements RoomDAO {
 		return roomList;
 	}
 
-	
 	@Override
 	public int saveRoom(Room room) {
-		// DB에 room 정보 테이블에 room 정보를 저장
+
+		//DB에 room정보 테이블에 room 정보를 저장
 								//실행할 쿼리 위치의 식별자, 매개변수
 		int result = sqlSessionTemplate.insert("room_mapper.saveRoom", room);
 		//수행 적용된 행의 수
@@ -44,15 +45,14 @@ public class RoomDAOImpl implements RoomDAO {
 		return result;
 	}
 
-
 	@Override
 	public Room findRoomByRoomId(int roomId) {
+		// TODO Auto-generated method stub
 		
-		Room room = sqlSessionTemplate.selectOne("room_mapper.findRoomByRoomId", roomId);
+		Room room = sqlSessionTemplate.selectOne("room_mapper.findRoomByRoomId",  roomId);
 		
 		return room;
 	}
-
 
 	@Override
 	public int removeRoom(int roomId) {
@@ -63,7 +63,6 @@ public class RoomDAOImpl implements RoomDAO {
 		return result;
 	}
 
-
 	@Override
 	public int modifyRoom(Room room) {
 		
@@ -71,4 +70,19 @@ public class RoomDAOImpl implements RoomDAO {
 		
 		return result;
 	}
+
+	@Override
+	public List<Room> findRoomListBySearchCondition(RoomSearchCondition roomSearchCondition) {
+
+		List<Room> roomList = sqlSessionTemplate.selectList("room_mapper.findRoomListBySearchCondition", roomSearchCondition);
+		
+		return roomList;
+	}
+	
 }
+
+
+
+
+
+
