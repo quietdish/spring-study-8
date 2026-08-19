@@ -31,8 +31,8 @@ public class Quiz19Controller {
         User user = new User();
         user.setId("quizid");
         user.setPw("secret");
-        user.setName("퀴즈이름");
-        user.setUserType(commonCode.ROOM_VIEWTYPE_CITY);
+        user.setName("quiz이름");
+        user.setUserType(commonCode.USER_USERTYPE_CUSTOMER);
 
         return user;
     }
