@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.common.CommonCode;
+import com.app.common.commonCode;
 import com.app.dto.user.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -82,7 +82,7 @@ public class Rest02Controller {
 		user.setId("abc08");
 		user.setPw("abc08pw");
 		user.setName("abcname");
-		user.setUserType( CommonCode.USER_USERTYPE_CUSTOMER  );
+		user.setUserType( commonCode.USER_USERTYPE_CUSTOMER  );
 		
 		// 객체 -> JSON 포맷 
 		
@@ -113,7 +113,7 @@ public class Rest02Controller {
 		user.setId("abc09");
 		user.setPw("abc09pw");
 		user.setName("abcname09");
-		user.setUserType( CommonCode.USER_USERTYPE_CUSTOMER  );
+		user.setUserType( commonCode.USER_USERTYPE_CUSTOMER  );
 		
 		return user; //객체 리턴이 알아서 json format 변형
 		
