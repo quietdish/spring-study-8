@@ -19,14 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final CoffeeBean coffeeBean;
 
 	@Autowired
 	UserDAO userDAO;
-
-    UserServiceImpl(CoffeeBean coffeeBean) {
-        this.coffeeBean = coffeeBean;
-    }
 
 	@Override
 	public int saveUser(User user) {
