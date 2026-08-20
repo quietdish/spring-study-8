@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.app.common.commonCode;
 import com.app.dto.user.User;
@@ -41,6 +43,40 @@ public class CustomerController {
 
 	}
 
+	//중복된 아이디 체크
+	@ResponseBody
+	@PostMapping("/customer/checkDupId")
+	public String checkDupId(@RequestBody String data) {
+				// 요청 body 담겨져 오는 데이터ㅕ를 단순 텍스트로 수신
+		
+		//클라이언트가 전달한 id 값을 받아서, 이게 중복인지 아닌지 DB에서 조회 비교 -> 응답
+		System.out.println("/customer/checkDupId");
+		System.out.println(data);
+
+		boolean result = userService.isDuplicatedID(data);
+		System.out.println(result);
+		
+		if(result) {
+			return "Y";
+		} else {
+			return "N";
+		}
+
+		// 중복 Y 	중복 아니면 N 리턴..
+		// 1 0
+		// T F
+		//return "Y";		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@GetMapping("/customer/signin")
 	public String signin() {
 		return "customer/signin";
@@ -149,7 +185,7 @@ public class CustomerController {
 			user.setPw(newPassword); // DTO의 비밀번호 필드명(pw, password 등)에 맞게 수정하세요.
 
 			// Service를 통해 DB 비밀번호 업데이트 로직 호출 (해당 메서드는 Service에 구현해야 함)
-			userService.updateUserPassword(user);
+			userService.modifyUserPw(user);
 
 			// 4) 요구사항: 변경된 비밀번호로 다시 로그인해야 정상 로그인되는지 확인
 			// 비밀번호 변경 후 로그아웃 처리하여 재로그인 유도
@@ -184,7 +220,7 @@ public class CustomerController {
 
 		System.out.println(user);
 
-		int result = userService.updateUserPassword(user);
+		int result = userService.modifyUserPw(user);
 
 		if (result > 0) {
 			return "redirect:/customer/mypage";

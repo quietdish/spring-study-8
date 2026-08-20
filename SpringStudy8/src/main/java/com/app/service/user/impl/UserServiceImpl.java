@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.app.common.CommonCode;
+import com.app.common.commonCode;
 import com.app.controller.study.quiz.quiz14.CoffeeBean;
 import com.app.dao.user.UserDAO;
 import com.app.dto.user.User;
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
 		//사용자 계정 추가시 사용 메소드
 		//고객계정으로 추가!
 		//user.setUserType("CUS");
-		user.setUserType( CommonCode.USER_USERTYPE_CUSTOMER );
+		user.setUserType( commonCode.USER_USERTYPE_CUSTOMER );
 		
 		
 		int result = userDAO.saveUser(user);
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
 		//관리자 계정 추가시 사용 메소드
 		//관리자계정으로 추가!
 		//user.setUserType("ADM");
-		user.setUserType( CommonCode.USER_USERTYPE_ADMIN );
+		user.setUserType( commonCode.USER_USERTYPE_CUSTOMER );
 		
 		int result = userDAO.saveUser(user);
 		
@@ -134,6 +134,24 @@ public class UserServiceImpl implements UserService {
 		List<User> userList = userDAO.findUserListBySearchCondition(userSearchCondition);
 
 		return userList;
+	}
+
+	@Override
+	public boolean isDuplicatedID(String id) {
+		// 매개변수 id
+		// DB 에 있나?
+		// id 중복인가?
+		// 중복 -> true
+		// 중복X ->  false
+		
+		User user = userDAO.findUserById(id);
+		
+		if(user == null) { //해당 아이디가 없다! -> 중복 X
+			return false;
+		} else {	//해당 아이디의 User 정보가 있다! -> 중복 O
+			return true;
+		}
+		
 	}
 }
 
