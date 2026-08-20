@@ -19,6 +19,9 @@ import com.app.dto.user.UserDupCheck;
 import com.app.service.user.UserService;
 import com.app.util.LoginManager;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class CustomerController {
 
@@ -30,6 +33,9 @@ public class CustomerController {
 	
 	@GetMapping("/customer/signup")
 	public String signup() {
+		
+		log.info("/customer/signup 경로 접근 확인");
+		
 		return "customer/signup";
 	}
 	
@@ -59,6 +65,9 @@ public class CustomerController {
 		System.out.println("/customer/checkDupId");
 		System.out.println(data);
 		
+		log.info("/customer/checkDupId 아이디 중복체크 요청 값{}", data);
+		
+		
 		boolean result = userService.isDuplicatedID(data);
 		System.out.println(result);
 		
@@ -78,6 +87,8 @@ public class CustomerController {
 	public ApiResponse<String> checkDupIdJson(@RequestBody UserDupCheck userDupCheck) {  
 										//요청을 객체로 받으면, 내부적으로 알아서 json 포맷을 객체로 파싱 변환
 		System.out.println(userDupCheck);
+		
+		log.info("/customer/checkDupId 아이디 중복체크 요청 값{}", userDupCheck);
 		
 		boolean result = userService.isDuplicatedID( userDupCheck.getId() );
 		System.out.println(result);  

@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.common.commonCode;
+import com.app.controller.customer.CustomerController;
 import com.app.controller.study.quiz.quiz14.CoffeeBean;
 import com.app.dao.user.UserDAO;
 import com.app.dto.user.User;
 import com.app.dto.user.UserSearchCondition;
 import com.app.service.user.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -51,9 +55,12 @@ public class UserServiceImpl implements UserService {
 		//관리자 계정 추가시 사용 메소드
 		//관리자계정으로 추가!
 		//user.setUserType("ADM");
-		user.setUserType( commonCode.USER_USERTYPE_CUSTOMER );
+		user.setUserType( commonCode.USER_USERTYPE_ADMIN );
 		
 		int result = userDAO.saveUser(user);
+		
+		log.info("관리자 계정 추가 확인 {}", user);
+		log.debug("관리자 계정 추가 시도 정보 {}, DB 저장 결과 result {}", user, result);
 		
 		return result;
 	}
