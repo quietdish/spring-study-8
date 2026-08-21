@@ -6,6 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<style>
+		/*css 코드 */
+/* 		h1 { color:orange;}		 */
+	</style>
+	
+	<link href="/css/main.css" rel="stylesheet">
+
 </head>
 <body>
 	<h1>main</h1>
@@ -28,6 +35,18 @@
 		</c:if>
 	</div>
 
+	<div>
+		<img src="/images/moon.jpg">
+	
+	</div>
+	<div>
+		<img src="https://www.shutterstock.com/image-vector/winter-scenery-cabin-pixel-art-260nw-2389796341.jpg">
+	
+	</div>
+
+
+
+	<script src="/js/main.js"></script>
 	<script>
 		function goSignup(){
 			location.href='customer/signup';
