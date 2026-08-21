@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.app.common.ApiCommonCode;
-import com.app.common.commonCode;
+import com.app.common.CommonCode;
 import com.app.dto.api.ApiResponse;
 import com.app.dto.api.ApiResponseHeader;
 import com.app.dto.user.User;
@@ -146,7 +146,7 @@ public class CustomerController {
 		// id pw 맞으면 로그인 성공?
 		// userType 
 		
-		user.setUserType( commonCode.USER_USERTYPE_CUSTOMER );
+		user.setUserType( CommonCode.USER_USERTYPE_CUSTOMER );
 		User loginUser = userService.checkUserLogin(user);
 		
 		//성공//실패

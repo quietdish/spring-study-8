@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.app.common.commonCode;
+import com.app.common.CommonCode;
 import com.app.dto.user.User;
 import com.app.service.user.UserService;
 import com.app.util.LoginManager;
@@ -37,7 +37,7 @@ public class AdminInterceptor implements HandlerInterceptor{
 			User user = userService.findUserById(userId);
 			
 			//관리자 여부 판단
-			if(user.getUserType().equals( commonCode.USER_USERTYPE_ADMIN)) {	//관리자 맞다
+			if(user.getUserType().equals( CommonCode.USER_USERTYPE_ADMIN)) {	//관리자 맞다
 				//기존 처리대로 그대로 다음과정 순차적 진행
 				return HandlerInterceptor.super.preHandle(request, response, handler);
 			} else {	//관리자가 아니다
@@ -56,5 +56,7 @@ public class AdminInterceptor implements HandlerInterceptor{
 		
 //		return HandlerInterceptor.super.preHandle(request, response, handler); 위로 -ㅁ-
 	}
+	
+	
 	
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.common.ApiCommonCode;
-import com.app.common.commonCode;
+import com.app.common.CommonCode;
 import com.app.controller.study.request.Request01Controller;
 import com.app.dto.api.ApiResponse;
 import com.app.dto.api.ApiResponseHeader;
@@ -204,7 +204,7 @@ public class Rest03Controller {
 		user.setId("idid");
 		user.setPw("pwpw");
 		user.setName("namename");
-		user.setUserType(commonCode.USER_USERTYPE_ADMIN);
+		user.setUserType(CommonCode.USER_USERTYPE_ADMIN);
 		
 		
 		

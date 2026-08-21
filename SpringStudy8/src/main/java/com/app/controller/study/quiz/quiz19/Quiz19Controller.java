@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.app.common.commonCode;
+import com.app.common.CommonCode;
 import com.app.dto.user.User;
 
 
@@ -32,7 +32,7 @@ public class Quiz19Controller {
         user.setId("quizid");
         user.setPw("secret");
         user.setName("quiz이름");
-        user.setUserType(commonCode.USER_USERTYPE_CUSTOMER);
+        user.setUserType(CommonCode.USER_USERTYPE_CUSTOMER);
 
         return user;
     }

@@ -56,7 +56,7 @@ public class Request03Controller {
 		
 		//localhost:8080/request03/param3?p1=10&p2=20&p3=30&p3=40
 		// 여러개의 값을 가진 파라미터를 읽어야될때
-		String[] p3Values = request.getParameterValues("p3");
+		p3Values = request.getParameterValues("p3");
 		for(String s: p3Values) {
 			System.out.println(s);
 		}

@@ -1,6 +1,6 @@
 package com.app.common;
 
-public interface commonCode {
+public interface CommonCode {
 
 	//프로젝트 내에 사용하는 모든 코드들을 모아두는 역할
 	//공통코드
