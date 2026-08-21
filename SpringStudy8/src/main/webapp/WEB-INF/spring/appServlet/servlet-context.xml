@@ -47,18 +47,21 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<interceptors>
 		<interceptor>
-			<mapping path="/**"/>
+			<mapping path="/customer/**"/>
 			<exclude-mapping path="/customer/signin"/>
 			<exclude-mapping path="/customer/signup"/>
-			<exclude-mapping path="/"/>
-			<exclude-mapping path="/main"/>
+			
 			<exclude-mapping path="/customer/checkDupIDJson"/>
-			<exclude-mapping path="/customer/checkDupID"/>
-			<exclude-mapping path="/css/**"/>
-			<exclude-mapping path="/js/**"/>
-			<exclude-mapping path="/images/**"/>			
+			<exclude-mapping path="/customer/checkDupID"/>			
 				
 			<beans:bean class="com.app.interceptor.LoginInterceptor"></beans:bean>
+		</interceptor>
+		
+
+		<interceptor>
+			<mapping path="/admin/**"/>	
+				
+			<beans:bean class="com.app.interceptor.AdminInterceptor"></beans:bean>
 		</interceptor>
 	
 	</interceptors>
