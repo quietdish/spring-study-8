@@ -1,11 +1,17 @@
 package com.app.controller.customer;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -31,6 +37,8 @@ public class CustomerController {
 	UserService userService; 
 	//사용자 계정정보 관련 서비스 로직
 	
+	//private static final Logger log = LogManager.getLogger(CustomerController.class);
+	
 	@GetMapping("/customer/signup")
 	public String signup() {
 		
@@ -39,8 +47,25 @@ public class CustomerController {
 		return "customer/signup";
 	}
 	
-	@PostMapping("/customer/signup")
-	public String signupAction(User user) {
+	@PostMapping("/customer/signup") 
+	public String signupAction(@Valid @ModelAttribute User user, BindingResult br) {
+		
+		//유효성 검증
+		
+		//@Valid 유효성 검증을 진행을 하고, 검증 결과 (문제,에러) -> BindingResult 에 담아준다
+		if(br.hasErrors()) { //true 조건위배한게 있다
+			
+			List<ObjectError> errorList = br.getAllErrors();
+			for(ObjectError er : errorList) {
+				System.out.println( er.getObjectName() );
+				System.out.println( er.getDefaultMessage() );
+				System.out.println( er.getCode() );
+				System.out.println( er.getCodes()[0] );
+			}
+			
+			return "customer/signup";	
+		}
+		
 		
 		System.out.println(user);
 		
@@ -65,8 +90,7 @@ public class CustomerController {
 		System.out.println("/customer/checkDupId");
 		System.out.println(data);
 		
-		log.info("/customer/checkDupId 아이디 중복체크 요청 값{}", data);
-		
+		log.info("/customer/checkDupId 아이디 중복체크 요청 값 {}", data);
 		
 		boolean result = userService.isDuplicatedID(data);
 		System.out.println(result);
@@ -88,7 +112,7 @@ public class CustomerController {
 										//요청을 객체로 받으면, 내부적으로 알아서 json 포맷을 객체로 파싱 변환
 		System.out.println(userDupCheck);
 		
-		log.info("/customer/checkDupId 아이디 중복체크 요청 값{}", userDupCheck);
+		log.info("/customer/checkDupIdJson 아이디 중복체크 요청 값 {}", userDupCheck);
 		
 		boolean result = userService.isDuplicatedID( userDupCheck.getId() );
 		System.out.println(result);  
