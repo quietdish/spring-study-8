@@ -12,36 +12,35 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
               http://www.springframework.org/schema/context
              http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- IOC컨테이너에 빈(컴포넌트) 등록 -->
-	<!-- roomDAO, roomService -->
 
-	<!-- RoomDAO roomDAO = new RoomDAOImpl(); -->
+<!-- 	IOC컨테이너에 빈(컴포넌트) 등록 -->
+<!-- 	    roomDAO , roomService  -->
+	
+<!-- 	RoomDAO roomDAO = new RoomDAOImpl(); -->
 <!-- 	<bean id="roomDAO" class="com.app.dao.room.impl.RoomDAOImpl"></bean> -->
 
-	<!-- RoomService roomService = new RoomServiceImpl(); -->
-<!-- 	<bean id="roomSErvice" class="com.app.service.room.impl.RoomServiceImpl"> -->
-		<!-- RoomService roomService = new RoomServiceImpl(roomDAO); -->
-		<!-- 룸다오 생성자를 통한 의존성 주입.. -->
+<!-- 	RoomService roomService = new RoomServiceImpl(); -->
+<!-- 	<bean id="roomService" class="com.app.service.room.impl.RoomServiceImpl"> -->
+		<!-- 	RoomService roomService = new RoomServiceImpl(roomDAO); -->
+<!-- 		생성자를 통한 의존성 주입 -->
 <!-- 		<constructor-arg ref="roomDAO"></constructor-arg> -->
-	
-<!-- 		setter 메소드를 통한 의존성 주입	 -->
-<!-- 			RoomService roomService = new RoomServiceImpl(); -->
-<!-- 			roomService.setRoomDAO(roomDAO); -->
-<!-- 		<property name="roomDAO" ref="roomDAO"></property> -->
-<!-- 	</bean> -->
-	
-
-
-<context:property-placeholder   location="classpath:config/jdbc.properties"/>		
 		
-	<bean class="org.apache.commons.dbcp2.BasicDataSource" id="data_source">	
-		<property name="driverClassName" value="${jdbc.driver}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-	</bean>	
-	
-	
+<!-- 		setter 메소드를 통한 의존성 주입 -->
+<!-- 		RoomService roomService = new RoomServiceImpl(); -->
+<!-- 		roomService.setRoomDAO(roomDAO); -->
+<!-- 		<property name="roomDAO" ref="roomDAO"></property> -->
+		
+<!-- 	</bean> -->
+
+	<context:property-placeholder location="classpath:config/db.properties"/>			
+			
+	<bean class="org.apache.commons.dbcp2.BasicDataSource" id="data_source">		
+		<property name="driverClassName" value="${jdbc.driver}" />	
+		<property name="url" value="${jdbc.url}" />	
+		<property name="username" value="${jdbc.username}" />	
+		<property name="password" value="${jdbc.password}" />	
+	</bean>		
+			
 <!-- 	<bean class="org.apache.commons.dbcp2.BasicDataSource" id="data_source"> -->
 <!-- 		<property name="driverClassName" value="oracle.jdbc.OracleDriver" /> -->
 <!-- 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl" /> -->
@@ -59,19 +58,17 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
+	
+	
+	<context:component-scan base-package="com.app.service" />
+	<context:component-scan base-package="com.app.dao" />
+	
+	 <bean id="sampleScheduler" class="com.app.scheduler.DailySalesScheduler" />
+	 <task:scheduler id="mainScheduler" pool-size="10" />
+	 <task:executor id="mainTaskExecutor" pool-size="10" />
+	 <task:annotation-driven executor="mainTaskExecutor" scheduler="mainScheduler" />
 
-
-	<context:component-scan base-package="com.app.service"/>
-	<context:component-scan base-package="com.app.dao"/>
-
-
-
-	<bean id="sampleScheduler" class="com.app.scheduler.DailySalesScheduler" />
-	<task:scheduler id="mainScheduler" pool-size="10" />
-	<task:executor id="mainTaskExecutor" pool-size="10" />
-	<task:annotation-driven executor="mainTaskExecutor" scheduler="mainScheduler" />
 </beans>
-
 
 
 

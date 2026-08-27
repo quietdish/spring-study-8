@@ -5,7 +5,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 
 @Configuration
-@PropertySource("classpath:config/api.properties")
+@PropertySource("classpath:config/api.properties")	//단일 경로
 
 //@PropertySources({
 //	@PropertySource("classpath:config/abc.properties")

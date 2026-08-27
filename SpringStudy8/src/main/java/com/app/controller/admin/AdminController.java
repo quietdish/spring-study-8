@@ -44,6 +44,9 @@ public class AdminController {
 	@GetMapping("/admin/registerRoom")
 	public String registerRoom() {
 		
+		
+		
+		
 		System.out.println("println");
 		log.info("log level info 기본 사항");
 		log.error("심각한 에러 발생 추후 꼭 처리");
