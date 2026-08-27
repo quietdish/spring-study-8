@@ -133,7 +133,7 @@ public class CustomerController {
 		
 		log.info("/customer/checkDupId 아이디 중복체크 요청 값 {}", data);
 		
-		boolean result = userService.isDuplicatedId(data);
+		boolean result = userService.isDuplicatedID(data);
 		System.out.println(result);
 		
 		if(result) { //true 중복
@@ -155,7 +155,7 @@ public class CustomerController {
 		
 		log.info("/customer/checkDupIdJson 아이디 중복체크 요청 값 {}", userDupCheck);
 		
-		boolean result = userService.isDuplicatedId( userDupCheck.getId() );
+		boolean result = userService.isDuplicatedID( userDupCheck.getId() );
 		System.out.println(result);  
 		
 		// Y N   
