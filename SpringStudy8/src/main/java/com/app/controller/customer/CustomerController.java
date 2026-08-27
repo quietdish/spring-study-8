@@ -110,6 +110,8 @@ public class CustomerController {
 		System.out.println(user);
 		//사용자가 회원가입 -> DB 저장
 		//사용자타입 CUS 
+		
+		//user 사용자가 입력한 그대로 값 -> 저장시 평문이 아닌 암호화된 PW 형태로 DB에 저장
 		int result = userService.saveCustomerUser(user);
 		if( result > 0 ) {
 			return "redirect:/main";
@@ -131,7 +133,7 @@ public class CustomerController {
 		
 		log.info("/customer/checkDupId 아이디 중복체크 요청 값 {}", data);
 		
-		boolean result = userService.isDuplicatedID(data);
+		boolean result = userService.isDuplicatedId(data);
 		System.out.println(result);
 		
 		if(result) { //true 중복
@@ -153,7 +155,7 @@ public class CustomerController {
 		
 		log.info("/customer/checkDupIdJson 아이디 중복체크 요청 값 {}", userDupCheck);
 		
-		boolean result = userService.isDuplicatedID( userDupCheck.getId() );
+		boolean result = userService.isDuplicatedId( userDupCheck.getId() );
 		System.out.println(result);  
 		
 		// Y N   

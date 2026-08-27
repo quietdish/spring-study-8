@@ -19,3 +19,22 @@ CREATE TABLE T_USER (
 	name VARCHAR2(32) NOT NULL,
 	user_type VARCHAR(8) NOT NULL
 );
+
+--PW 암호화로 인하여, T_USER PW 컬럼 사이즈 변경			
+ALTER TABLE T_USER			
+MODIFY pw VARCHAR2(64);			
+
+
+
+CREATE TABLE FILE_INFO (
+	file_name VARCHAR2(256),
+	original_file_name VARCHAR2(256),
+	file_path VARCHAR2(256),
+	url_file_path VARCHAR2(256)
+);
+
+
+CREATE TABLE USER_PROFILE_IMAGE (
+    id VARCHAR2(32 BYTE),
+    file_name VARCHAR2(256)
+);
